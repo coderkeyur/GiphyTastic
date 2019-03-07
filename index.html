@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GiphyTastic</title>
+    <!--bootstrap CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <!--CSS style-->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="row text-center h1">
+        <div class="col-lg-12 col-md-12 col-sm-12" id="titleName">
+            GiphyTastic
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-md-4 col-sm-12" id="searchContainer">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2", id="giphy-search" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0", id="submitBtn" type="submit">Search</button>
+                </form>
+                <div id="searchQueries">
+                    <!--Search queries button-->
+                    <div id="buttons-view"></div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-7 col-md-8 col-sm-12" id="resultWindow">
+                <p>Here are your giphy images!</p>
+                <div id="giphyImages">
+                    <!--append giphy images-->
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <!--JQuery CDN-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <!--Javascript link-->
+    <script src="assets/javascript/app.js"></script>
+
+</body>
+
+</html>
