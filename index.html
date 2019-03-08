@@ -9,6 +9,7 @@
     <!--bootstrap CDN-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Bungee|Fredoka+One|Open+Sans" rel="stylesheet">
     <!--CSS style-->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -22,28 +23,28 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-5 col-md-4 col-sm-12" id="searchContainer">
+            <div class="col-lg-12 col-md-12 col-sm-12" id="searchContainer">
                 <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2", id="giphy-search" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0", id="submitBtn" type="submit">Search</button>
+                    <input class="form-control mr-sm-2" , id="giphy-search" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-success my-2 my-sm-0" , id="submitBtn" type="submit">Search</button>
                 </form>
-                <div id="searchQueries">
-                    <!--Search queries button-->
-                    <div id="buttons-view"></div>
-                </div>
-
+            </div>
+            <div id="searchQueries">
+                <!--Search queries button-->
+                <div id="giphy-buttons"></div>
             </div>
 
-            <div class="col-lg-7 col-md-8 col-sm-12" id="resultWindow">
-                <p>Here are your giphy images!</p>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" id="resultWindow">
                 <div id="giphyImages">
                     <!--append giphy images-->
                 </div>
 
             </div>
         </div>
-
-
     </div>
 
 

@@ -1,82 +1,105 @@
 var giphyQueries = ["Cat", "Dog", "Elephant"];
 
-renderButtons();
+function renderButtons() {
+  $("#giphy-buttons").empty();
 
-function renderButtons(){
+  for (var i = 0; i < giphyQueries.length; i++) {
+    var a = $("<button>");
 
-    $("#buttons-view").empty();
+    a.addClass("giphyButton btn btn-light align-items-center");
 
-    for (var i = 0; i < giphyQueries.length; i++) {
-        var a = $("<button>");
+    a.attr("data-giphy", giphyQueries[i]);
 
-        a.addClass("giphy-btn");
+    a.text(giphyQueries[i]);
 
-        a.attr ("data-name", giphyQueries[i]);
-
-        a.text(giphyQueries[i]);
-
-        $("#searchQueries").append(a);
-    }
+    $("#giphy-buttons").append(a);
+  }
 }
 
-$("#submitBtn").on("click", function(event){
+$("#submitBtn").on("click", function(event) {
+  event.preventDefault();
 
-    event.preventDefault();
+  var giphyQuery = $("#giphy-search")
+    .val()
+    .trim();
 
-    var giphyQuery = $("#giphy-search").val().trim();
+  giphyQueries.push(giphyQuery);
 
-    giphyQueries.push(giphyQueries);
+  $("#giphy-search").val("");
 
-    renderButtons();
-})
-
-
-$("button").on("click", function() {
- var giphy = $(this).attr("dataname");
- //console.log("this is my giphyQuery in submit button" + giphyQuery); 
- console.log("giphy" + giphy);
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + giphy + "&api_key=Tmzvpdyt1W5iEDGeW6c6BCNPC6STvYXG&limit=5";
-
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function(response){
-        var results = response.data;
-        console.log(response);
-        for (var i=0; i < results.length; i++){
-            if (results[i].rating !== "r" && results[i].rating !== "pg-13"){
-                var gifDiv=$("<div>");
-                var rating = results[i].rating;
-                var p = $("<p>").text("Rating: " + rating);
-                var giphyimage = $("<img>");
-                giphyimage.attr("src", results[i].images.fixed_height_still.url);
-                giphyimage.attr("data-still",  results[i].images.fixed_height_still.url);
-                giphyimage.attr("data-animate", results[i].images.fixed_height.url);
-                giphyimage.attr("data-state", 'still');
-                giphyimage.addClass("gif");
-                gifDiv.append(p);
-                gifDiv.append(giphyimage);
-                $("#giphyImages").prepend(gifDiv);
-            }
-        }
-        
-       
-    });
-
-    //var giphyStill = results[i].images.fixed_height_still.url
-    //var giphyAnimate = results[i].images.fixed.height.url
-
- $(".gif").on("click", function() {
-      var state = $(this).attr("data-state");
-    if (state === "still") {
-         $(this).attr("src", $(this).attr("data-animate"));
-          $(this).attr("data-state", "animate");
-        } else {
-        $(this).attr("src", $(this).attr("data-still"));
-            $(this).attr("data-state", "still");
-        }
-      });
-    
-
-    
+  renderButtons();
 });
+
+function fetchGiphy() {
+  var giphyName = $(this).attr("data-giphy");
+
+  var queryURL =
+    "https://api.giphy.com/v1/gifs/search?q=" +
+    giphyName +
+    "&api_key=Tmzvpdyt1W5iEDGeW6c6BCNPC6STvYXG&limit=10";
+
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(response) {
+    var results = response.data;
+    console.log(results);
+
+    $("#giphyImages").empty();
+    for (var i = 0; i < results.length; i++) {
+      var newDiv = $("<div>");
+      newDiv.addClass("displayedGiphy");
+
+      var newRating = $("<h5>").html("Rating: " + results[i].rating);
+      newDiv.append(newRating);
+
+      var newImg = $("<img>");
+      newImg.attr("src", results[i].images.fixed_height_still.url);
+      newImg.attr("data-still", results[i].images.fixed_height_still.url);
+      newImg.attr("data-animate", results[i].images.fixed_height.url);
+      newImg.attr("data-state", "still");
+      newDiv.append(newImg);
+
+      $("#giphyImages").append(newDiv);
+    }
+  });
+}
+
+function animateGiphy() {
+  var state = $(this)
+    .find("img")
+    .attr("data-state");
+
+  if (state === "still") {
+    $(this)
+      .find("img")
+      .attr(
+        "src",
+        $(this)
+          .find("img")
+          .attr("data-animate")
+      );
+    $(this)
+      .find("img")
+      .attr("data-state", "animate");
+  } else {
+    $(this)
+      .find("img")
+      .attr(
+        "src",
+        $(this)
+          .find("img")
+          .attr("data-still")
+      );
+    $(this)
+      .find("img")
+      .attr("data-state", "still");
+  }
+}
+
+$(document).ready(function() {
+  renderButtons();
+});
+
+$(document).on("click", ".giphyButton", fetchGiphy);
+$(document).on("click", ".displayedGiphy", animateGiphy);
